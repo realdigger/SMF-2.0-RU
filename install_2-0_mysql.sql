@@ -1872,7 +1872,13 @@ VALUES (1, 'Google', 'googlebot', ''),
 	(16, 'InternetArchive', 'ia_archiver-web.archive.org', ''),
 	(17, 'Alexa', 'ia_archiver', ''),
 	(18, 'Omgili', 'omgilibot', ''),
-	(19, 'EntireWeb', 'Speedy Spider', '');
+	(19, 'EntireWeb', 'Speedy Spider', ''),
+	(20, 'Yandex', 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)', ''),
+	(21, 'Nigma', 'Mozilla/5.0 (compatible; Nigma.ru/3.0; crawler@nigma.ru)', ''),
+	(22, 'Sape BOT', 'SAPE.BOT is watching you!', ''),
+	(23, 'Sputnik Bot', 'Mozilla/5.0 (compatible; SputnikBot/2.3; +http://corp.sputnik.ru/webmaster)', ''),
+	(24, 'Mail.RU Bot', 'Mozilla/5.0 (compatible; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots', ''),
+	(25, 'Mail.RU Bot', 'Mozilla/5.0 (compatible; Mail.RU_Bot/Fast/2.0; +http://go.mail.ru/help/robots)', '');
 
 #
 # Table structure for table `subscriptions`

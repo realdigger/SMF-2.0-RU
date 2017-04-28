@@ -2011,6 +2011,12 @@ INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VA
 INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (17, 'Alexa', 'ia_archiver', '');
 INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (18, 'Omgili', 'omgilibot', '');
 INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (19, 'EntireWeb', 'Speedy Spider', '');
+INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (20, 'Yandex', 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)', '');
+INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (21, 'Nigma', 'Mozilla/5.0 (compatible; Nigma.ru/3.0; crawler@nigma.ru)', '');
+INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (22, 'Sape BOT', 'SAPE.BOT is watching you!', '');
+INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (23, 'Sputnik Bot', 'Mozilla/5.0 (compatible; SputnikBot/2.3; +http://corp.sputnik.ru/webmaster)', '');
+INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (24, 'Mail.RU Bot', 'Mozilla/5.0 (compatible; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots', '');
+INSERT INTO {$db_prefix}spiders (id_spider, spider_name, user_agent, ip_info) VALUES (25, 'Mail.RU Bot', 'Mozilla/5.0 (compatible; Mail.RU_Bot/Fast/2.0; +http://go.mail.ru/help/robots)', '');
 
 #
 # Table structure for table `subscriptions`
