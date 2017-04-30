@@ -2246,6 +2246,7 @@ INSERT INTO {$db_prefix}settings (variable, value) VALUES ('attachment_image_par
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('attachment_thumb_png', '1');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('avatar_reencode', '1');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('avatar_paranoid', '0');
+INSERT INTO {$db_prefix}settings (variable, value) VALUES ('show_spider_online', '3');
 # --------------------------------------------------------
 
 #

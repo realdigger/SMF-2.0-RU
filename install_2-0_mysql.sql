@@ -1777,7 +1777,8 @@ VALUES ('smfVersion', '{$smf_version}'),
 	('attachment_image_paranoid', '0'),
 	('attachment_thumb_png', '1'),
 	('avatar_reencode', '1'),
-	('avatar_paranoid', '0');
+	('avatar_paranoid', '0'),
+	('show_spider_online', '3');
 # --------------------------------------------------------
 
 #
