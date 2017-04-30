@@ -32,6 +32,7 @@
 "Разрешить функцию "Сегодня" - "Сегодня и Вчера",  
 "Отображать кнопки ВВЕРХ/ВНИЗ",  
 "Отображать статус онлайн/оффлайн в сообщениях пользователей"   
+* Удалены оригинальные праздники из календаря, добавлено некоторое количество международных и Российских.  
 
 ## Description
 SMF 2.0 distributive with Russian-utf8 localization integrated.
@@ -62,3 +63,4 @@ SMF 2.0 distributive with Russian-utf8 localization integrated.
 "Show online/offline in posts and PMs",  
 "Enable Go Up/Go Down buttons",  
 "Enable shorthand date display - Today & Yesterday"
+* Original holidays removed, some international and Russian ones added. 
