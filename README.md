@@ -2,37 +2,7 @@
 * **License:** BSD License
 * **UTF-8:** Yes
 
-## Description
-SMF 2.0 distributive with Russian-utf8 localization integrated.
-
-### Features
-* Russian-utf8 localization integrated.
-* Set utf-8 as default for install script
-* Add force opcache invalidate for Settings.php file to fix issue with http://127.0.0.1/smf/... url for themes, smiles and avatars
-* Set default PM mode as a conversation
-* Set "Notify by email every time you receive a personal message" option to "Always" by default
-* Add Russian search engines spider's user-agents: Yandex, Nigma, Sape, Sputnik, Mail.ru
-* Set "Show spiders in the online list" option to "Show spider names - admin only" by default
-* Set "Number recent posts" option value to 10 by default
-* Set enabled by default for member settings:   
-"Use sidebar menus instead of dropdown menus when possible",  
-"Return to topics after posting by default",  
-"Show most recent personal messages at top",  
-"Show a popup when I receive new messages",  
-"Save a copy of each personal message in my sent items by default",   
-"Set First day of the week on the calendar - Monday",  
-"Show quick-moderation as checkboxes"
-* Set enabled by default for core features:  
-"Calendar",  
-"Advanced Profile Fields",  
-"Moderation, Administration and User Logs Report Generation",  
-"Search Engine Tracking"
-* Set enabled by default Features and Options:    
-"Show online/offline in posts and PMs",  
-"Enable Go Up/Go Down buttons",  
-"Enable shorthand date display - Today & Yesterday"
-
-## Description
+## Описание
 Дистрибутив SMF 2.0 с интегрированной русификацией (russian-utf8).
 
 ### Отличия от оригинальной версии
@@ -62,3 +32,33 @@ SMF 2.0 distributive with Russian-utf8 localization integrated.
 "Разрешить функцию "Сегодня" - "Сегодня и Вчера",  
 "Отображать кнопки ВВЕРХ/ВНИЗ",  
 "Отображать статус онлайн/оффлайн в сообщениях пользователей"   
+
+## Description
+SMF 2.0 distributive with Russian-utf8 localization integrated.
+
+### Features
+* Russian-utf8 localization integrated.
+* Set utf-8 as default for install script
+* Add force opcache invalidate for Settings.php file to fix issue with http://127.0.0.1/smf/... url for themes, smiles and avatars
+* Set default PM mode as a conversation
+* Set "Notify by email every time you receive a personal message" option to "Always" by default
+* Add Russian search engines spider's user-agents: Yandex, Nigma, Sape, Sputnik, Mail.ru
+* Set "Show spiders in the online list" option to "Show spider names - admin only" by default
+* Set "Number recent posts" option value to 10 by default
+* Set enabled by default for member settings:   
+"Use sidebar menus instead of dropdown menus when possible",  
+"Return to topics after posting by default",  
+"Show most recent personal messages at top",  
+"Show a popup when I receive new messages",  
+"Save a copy of each personal message in my sent items by default",   
+"Set First day of the week on the calendar - Monday",  
+"Show quick-moderation as checkboxes"
+* Set enabled by default for core features:  
+"Calendar",  
+"Advanced Profile Fields",  
+"Moderation, Administration and User Logs Report Generation",  
+"Search Engine Tracking"
+* Set enabled by default Features and Options:    
+"Show online/offline in posts and PMs",  
+"Enable Go Up/Go Down buttons",  
+"Enable shorthand date display - Today & Yesterday"
