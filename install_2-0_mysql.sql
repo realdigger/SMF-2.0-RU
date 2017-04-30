@@ -1227,7 +1227,7 @@ CREATE TABLE {$db_prefix}members (
   signature text NOT NULL,
   time_offset float NOT NULL default '0',
   avatar varchar(255) NOT NULL default '',
-  pm_email_notify tinyint(4) NOT NULL default '0',
+  pm_email_notify tinyint(4) NOT NULL default '1',
   karma_bad smallint(5) unsigned NOT NULL default '0',
   karma_good smallint(5) unsigned NOT NULL default '0',
   usertitle varchar(255) NOT NULL default '',
