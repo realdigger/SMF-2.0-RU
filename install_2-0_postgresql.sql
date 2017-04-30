@@ -2079,7 +2079,7 @@ INSERT INTO {$db_prefix}settings (variable, value) VALUES ('news', '{$default_ne
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('compactTopicPagesContiguous', '5');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('compactTopicPagesEnable', '1');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('enableStickyTopics', '1');
-INSERT INTO {$db_prefix}settings (variable, value) VALUES ('todayMod', '1');
+INSERT INTO {$db_prefix}settings (variable, value) VALUES ('todayMod', '2');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('karmaMode', '0');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('karmaTimeRestrictAdmins', '1');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('enablePreviousNext', '1');
@@ -2116,7 +2116,7 @@ INSERT INTO {$db_prefix}settings (variable, value) VALUES ('topicSummaryPosts', 
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('enableErrorLogging', '1');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('max_image_width', '0');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('max_image_height', '0');
-INSERT INTO {$db_prefix}settings (variable, value) VALUES ('onlineEnable', '0');
+INSERT INTO {$db_prefix}settings (variable, value) VALUES ('onlineEnable', '1');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('cal_enabled', '0');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('cal_maxyear', '2030');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('cal_minyear', '2008');
@@ -2247,6 +2247,7 @@ INSERT INTO {$db_prefix}settings (variable, value) VALUES ('attachment_thumb_png
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('avatar_reencode', '1');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('avatar_paranoid', '0');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('show_spider_online', '3');
+INSERT INTO {$db_prefix}settings (variable, value) VALUES ('topbottomEnable', '1');
 # --------------------------------------------------------
 
 #

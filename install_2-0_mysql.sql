@@ -1611,7 +1611,7 @@ VALUES ('smfVersion', '{$smf_version}'),
 	('compactTopicPagesContiguous', '5'),
 	('compactTopicPagesEnable', '1'),
 	('enableStickyTopics', '1'),
-	('todayMod', '1'),
+	('todayMod', '2'),
 	('karmaMode', '0'),
 	('karmaTimeRestrictAdmins', '1'),
 	('enablePreviousNext', '1'),
@@ -1648,7 +1648,7 @@ VALUES ('smfVersion', '{$smf_version}'),
 	('enableErrorLogging', '1'),
 	('max_image_width', '0'),
 	('max_image_height', '0'),
-	('onlineEnable', '0'),
+	('onlineEnable', '1'),
 	('cal_enabled', '0'),
 	('cal_maxyear', '2030'),
 	('cal_minyear', '2008'),
@@ -1778,7 +1778,8 @@ VALUES ('smfVersion', '{$smf_version}'),
 	('attachment_thumb_png', '1'),
 	('avatar_reencode', '1'),
 	('avatar_paranoid', '0'),
-	('show_spider_online', '3');
+	('show_spider_online', '3'),
+	('topbottomEnable', '1');
 # --------------------------------------------------------
 
 #
