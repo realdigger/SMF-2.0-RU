@@ -14,7 +14,7 @@ SMF 2.0 distributive with Russian-utf8 localization integrated.
 * Add Russian search engines spider's user-agents: Yandex, Nigma, Sape, Sputnik, Mail.ru
 * Set "Show spiders in the online list" option to "Show spider names - admin only" by default
 * Set "Number recent posts" option value to 10 by default
-* Set enabled by default for settings:   
+* Set enabled by default for member settings:   
 "Use sidebar menus instead of dropdown menus when possible",  
 "Return to topics after posting by default",  
 "Show most recent personal messages at top",  
@@ -27,6 +27,10 @@ SMF 2.0 distributive with Russian-utf8 localization integrated.
 "Advanced Profile Fields",  
 "Moderation, Administration and User Logs Report Generation",  
 "Search Engine Tracking"
+* Set enabled by default Features and Options:    
+"Show online/offline in posts and PMs",  
+"Enable Go Up/Go Down buttons",  
+"Enable shorthand date display - Today & Yesterday"
 
 ## Description
 Дистрибутив SMF 2.0 с интегрированной русификацией (russian-utf8).
@@ -54,3 +58,7 @@ SMF 2.0 distributive with Russian-utf8 localization integrated.
 "Логи модерации",  
 "Генератор отчетов",  
 "Поисковые системы"
+* Включены по умолчанию в свойствах и параметрах:    
+"Разрешить функцию "Сегодня" - "Сегодня и Вчера",  
+"Отображать кнопки ВВЕРХ/ВНИЗ",  
+"Отображать статус онлайн/оффлайн в сообщениях пользователей"   
