@@ -2156,6 +2156,9 @@ INSERT INTO {$db_prefix}settings (variable, value) VALUES ('avatar_reencode', '1
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('avatar_paranoid', '0');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('show_spider_online', '3');
 INSERT INTO {$db_prefix}settings (variable, value) VALUES ('topbottomEnable', '1');
+INSERT INTO {$db_prefix}settings (variable, value) VALUES ('custom_avatar_enabled', '1');
+INSERT INTO {$db_prefix}settings (variable, value) VALUES ('custom_avatar_dir', '{$boarddir}/custom_avatar');
+INSERT INTO {$db_prefix}settings (variable, value) VALUES ('custom_avatar_url', '{$boardurl}/custom_avatar');
 # --------------------------------------------------------
 
 #

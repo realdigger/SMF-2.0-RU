@@ -1,4 +1,4 @@
-# SMF 2.0 Russian localized distributive
+# SMF 2.0 Russian Edition
 * **License:** BSD License
 * **UTF-8:** Yes
 

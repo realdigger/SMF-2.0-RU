@@ -1682,7 +1682,10 @@ VALUES ('smfVersion', '{$smf_version}'),
 	('avatar_reencode', '1'),
 	('avatar_paranoid', '0'),
 	('show_spider_online', '3'),
-	('topbottomEnable', '1');
+	('topbottomEnable', '1'),
+	('custom_avatar_enabled', '1'),
+	('custom_avatar_dir', '{$boarddir}/custom_avatar'),
+	('custom_avatar_url', '{$boardurl}/custom_avatar');
 # --------------------------------------------------------
 
 #
