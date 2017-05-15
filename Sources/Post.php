@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.12
+ * @version 2.0.14
  */
 
 if (!defined('SMF'))
@@ -243,8 +243,8 @@ function Post()
 		// Set up the poll options.
 		$context['poll_options'] = array(
 			'max_votes' => empty($_POST['poll_max_votes']) ? '1' : max(1, $_POST['poll_max_votes']),
-			'hide' => empty($_POST['poll_hide']) ? 0 : $_POST['poll_hide'],
-			'expire' => !isset($_POST['poll_expire']) ? '' : $_POST['poll_expire'],
+			'hide' => empty($_POST['poll_hide']) ? 0 : (int) $_POST['poll_hide'],
+			'expire' => !isset($_POST['poll_expire']) ? '' : (int) $_POST['poll_expire'],
 			'change_vote' => isset($_POST['poll_change_vote']),
 			'guest_vote' => isset($_POST['poll_guest_vote']),
 			'guest_vote_enabled' => in_array(-1, $allowedVoteGroups['allowed']),
@@ -450,7 +450,7 @@ function Post()
 				{
 					if (!isset($_REQUEST['email']) || $_REQUEST['email'] == '')
 						$context['post_error']['no_email'] = true;
-					elseif (preg_match('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $_REQUEST['email']) == 0)
+					elseif (filter_var($_REQUEST['email'], FILTER_VALIDATE_EMAIL) === false)
 						$context['post_error']['bad_email'] = true;
 				}
 			}
@@ -1495,7 +1495,7 @@ function Post2()
 			{
 				if (!allowedTo('moderate_forum') && (!isset($_POST['email']) || $_POST['email'] == ''))
 					$post_errors[] = 'no_email';
-				if (!allowedTo('moderate_forum') && preg_match('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $_POST['email']) == 0)
+				if (!allowedTo('moderate_forum') && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === false)
 					$post_errors[] = 'bad_email';
 			}
 

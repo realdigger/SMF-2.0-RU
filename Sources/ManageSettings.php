@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.6
+ * @version 2.0.14
  */
 
 if (!defined('SMF'))
@@ -83,9 +83,11 @@ function loadGeneralSettingParameters($subActions = array(), $defaultAction = ''
 
 	$context['sub_template'] = 'show_settings';
 
-	// By default do the basic settings.
-	$_REQUEST['sa'] = isset($_REQUEST['sa']) && isset($subActions[$_REQUEST['sa']]) ? $_REQUEST['sa'] : (!empty($defaultAction) ? $defaultAction : array_pop(array_keys($subActions)));
-	$context['sub_action'] = $_REQUEST['sa'];
+	// If no fallback was specified, use the first subaction.
+	$defaultAction = !empty($defaultAction) ? $defaultAction : key($subActions);
+
+	// I want...
+	$_REQUEST['sa'] = isset($_REQUEST['sa'], $subActions[$_REQUEST['sa']]) ? $_REQUEST['sa'] : $defaultAction;
 }
 
 // This function passes control through to the relevant tab.

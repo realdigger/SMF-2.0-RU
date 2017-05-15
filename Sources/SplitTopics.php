@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0
+ * @version 2.0.14
  */
 
 // Original module by Mach8 - We'll never forget you.
@@ -186,7 +186,7 @@ function SplitIndex()
 	// Basic template information....
 	$context['message'] = array(
 		'id' => $_GET['at'],
-		'subject' => $_REQUEST['subname']
+		'subject' => $smcFunc['htmlspecialchars']($_REQUEST['subname']),
 	);
 	$context['sub_template'] = 'ask';
 	$context['page_title'] = $txt['split'];

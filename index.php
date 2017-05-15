@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.13
+ * @version 2.0.14
  */
 
 /*	This, as you have probably guessed, is the crux on which SMF functions.
@@ -22,7 +22,7 @@
 	with the URL index.php?action=action-in-url.  Relatively simple, no?
 */
 
-$forum_version = 'SMF 2.0.13';
+$forum_version = 'SMF 2.0.14';
 @ini_set('memory_limit', '128M');
 
 // Get everything started up...
@@ -109,6 +109,15 @@ if (!headers_sent())
 
 // Register an error handler.
 set_error_handler('error_handler');
+
+// Quickly catch random exceptions.
+set_exception_handler(function ($e) use ($db_show_debug)
+{
+	if (isset($db_show_debug) && $db_show_debug === true && allowedTo('admin_forum'))
+		fatal_error(nl2br($e), false);
+	else
+		fatal_error($e->getMessage(), false);
+});
 
 // Start the session. (assuming it hasn't already been.)
 loadSession();

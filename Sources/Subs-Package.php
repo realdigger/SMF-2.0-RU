@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.10
+ * @version 2.0.14
  */
 
 if (!defined('SMF'))
@@ -2879,7 +2879,22 @@ function fetch_web_data($url, $post_data = '', $keep_alive = false, $redirection
 		$ftp->check_response(226);
 		$ftp->close();
 	}
-	// This is more likely; a standard HTTP URL.
+	// More likely a standard HTTP/s URL, first try to use cURL if available
+	elseif (isset($match[1]) && substr($match[1], 0, 4) === 'http' && function_exists('curl_init'))
+	{
+		// Include the file containing the curl_fetch_web_data class.
+		loadClassFile('Class-CurlFetchWeb.php');
+
+		$fetch_data = new curl_fetch_web_data();
+		$fetch_data->get_url_data($url, $post_data);
+
+		// no errors and a 200 result, then we have a good dataset, well we at least have data ;)
+		if ($fetch_data->result('code') == 200 && !$fetch_data->result('error'))
+			$data = $fetch_data->result('body');
+		else
+			return false;
+	}
+	// Fallback to sockets.
 	elseif (isset($match[1]) && $match[1] == 'http')
 	{
 		if ($keep_alive && $match[3] == $keep_alive_dom)

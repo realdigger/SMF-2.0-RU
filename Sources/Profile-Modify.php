@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.12
+ * @version 2.0.14
  */
 
 if (!defined('SMF'))
@@ -1287,7 +1287,7 @@ function makeCustomFieldChanges($memID, $area, $sanitize = true)
 			if ($row['field_type'] == 'text' && !empty($row['mask']) && $row['mask'] != 'none')
 			{
 				//!!! We never error on this - just ignore it at the moment...
-				if ($row['mask'] == 'email' && (preg_match('~^[0-9A-Za-z=_+\-/][0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $value) === 0 || strlen($value) > 255))
+				if ($row['mask'] == 'email' && (filter_var($value, FILTER_VALIDATE_EMAIL) === false || strlen($value) > 255))
 					$value = '';
 				elseif ($row['mask'] == 'number')
 				{
@@ -2382,7 +2382,7 @@ function profileLoadSignatureData()
 // Load avatar context data.
 function profileLoadAvatarData()
 {
-	global $context, $cur_profile, $modSettings, $scripturl;
+	global $context, $cur_profile, $modSettings, $scripturl, $boardurl, $image_proxy_enabled;
 
 	$context['avatar_url'] = $modSettings['avatar_url'];
 
@@ -2406,12 +2406,19 @@ function profileLoadAvatarData()
 		);
 		$context['member']['avatar']['href'] = empty($cur_profile['attachment_type']) ? $scripturl . '?action=dlattach;attach=' . $cur_profile['id_attach'] . ';type=avatar' : $modSettings['custom_avatar_url'] . '/' . $cur_profile['filename'];
 	}
-	elseif (stristr($cur_profile['avatar'], 'http://') && $context['member']['avatar']['allow_external'])
+	elseif ((stristr($cur_profile['avatar'], 'http://') || stristr($cur_profile['avatar'], 'https://')) && $context['member']['avatar']['allow_external'])
+	{
 		$context['member']['avatar'] += array(
 			'choice' => 'external',
 			'server_pic' => 'blank.gif',
-			'external' => $cur_profile['avatar']
+			'external' => $cur_profile['avatar'],
+			'external_original' => $cur_profile['avatar']
 		);
+
+		// If we have a proxied imaged, show the original url, not the proxy url.
+		if ($image_proxy_enabled && !empty($cur_profile['avatar_original']) && $cur_profile['avatar_original'] != $cur_profile['avatar'] && stristr($cur_profile['avatar'], $boardurl . '/proxy.php'))
+			$context['member']['avatar']['external_original'] = $cur_profile['avatar_original'];
+	}
 	elseif ($cur_profile['avatar'] != '' && file_exists($modSettings['avatar_directory'] . '/' . $cur_profile['avatar']) && $context['member']['avatar']['allow_server_stored'])
 		$context['member']['avatar'] += array(
 			'choice' => 'server_stored',
@@ -2424,6 +2431,10 @@ function profileLoadAvatarData()
 			'server_pic' => 'blank.gif',
 			'external' => 'http://'
 		);
+
+	// Ensure we have a original external.
+	if (!isset($context['member']['avatar']['external_original']))
+		$context['member']['avatar']['external_original'] = $context['member']['avatar']['external'];
 
 	// Get a list of all the avatars.
 	if ($context['member']['avatar']['allow_server_stored'])
@@ -2613,7 +2624,7 @@ function profileSaveAvatarData(&$value)
 		// Get rid of their old avatar. (if uploaded.)
 		removeAttachments(array('id_member' => $memID));
 	}
-	elseif ($value == 'external' && allowedTo('profile_remote_avatar') && strtolower(substr($_POST['userpicpersonal'], 0, 7)) == 'http://' && empty($modSettings['avatar_download_external']))
+	elseif ($value == 'external' && allowedTo('profile_remote_avatar') && (strtolower(substr($_POST['userpicpersonal'], 0, 7)) == 'http://' || strtolower(substr($_POST['userpicpersonal'], 0, 8)) == 'https://') && empty($modSettings['avatar_download_external']))
 	{
 		// We need these clean...
 		$cur_profile['id_attach'] = 0;
@@ -2628,7 +2639,7 @@ function profileSaveAvatarData(&$value)
 		if ($profile_vars['avatar'] == 'http://' || $profile_vars['avatar'] == 'http:///')
 			$profile_vars['avatar'] = '';
 		// Trying to make us do something we'll regret?
-		elseif (substr($profile_vars['avatar'], 0, 7) != 'http://')
+		elseif (substr($profile_vars['avatar'], 0, 7) != 'http://' && substr($profile_vars['avatar'], 0, 8) != 'https://')
 			return 'bad_avatar';
 		// Should we check dimensions?
 		elseif (!empty($modSettings['avatar_max_height_external']) || !empty($modSettings['avatar_max_width_external']))

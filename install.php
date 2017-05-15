@@ -8,13 +8,13 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.12
+ * @version 2.0.14
  */
 
-$GLOBALS['current_smf_version'] = '2.0.13';
+$GLOBALS['current_smf_version'] = '2.0.14';
 $GLOBALS['db_script_version'] = '2-0';
 
-$GLOBALS['required_php_version'] = '4.1.0';
+$GLOBALS['required_php_version'] = '5.3.0';
 
 // Don't have PHP support, do you?
 // ><html dir="ltr"><head><title>Error!</title></head><body>Sorry, this installer requires PHP!<div style="display: none;">
@@ -24,15 +24,15 @@ $databases = array(
 	'mysql' => array(
 		'name' => 'MySQL',
 		'version' => '4.0.18',
-		'version_check' => 'return min(mysql_get_server_info(), mysql_get_client_info());',
-		'supported' => function_exists('mysql_connect'),
-		'default_user' => 'mysql.default_user',
-		'default_password' => 'mysql.default_password',
-		'default_host' => 'mysql.default_host',
-		'default_port' => 'mysql.default_port',
+		'version_check' => 'return min(mysqli_get_server_info($db_connection), mysqli_get_client_info());',
+		'supported' => function_exists('mysqli_connect'),
+		'default_user' => 'mysqli.default_user',
+		'default_password' => 'mysqli.default_password',
+		'default_host' => 'mysqli.default_host',
+		'default_port' => 'mysqli.default_port',
 		'utf8_support' => true,
 		'utf8_version' => '4.1.0',
-		'utf8_version_check' => 'return mysql_get_server_info();',
+		'utf8_version_check' => 'return mysqli_get_server_info($db_connection);',
 		'utf8_default' => true,
 		'utf8_required' => false,
 		'alter_support' => true,
@@ -728,7 +728,7 @@ function DatabaseSettings()
 		$incontext['db']['prefix'] = 'smf_';
 
 	// Should we use a non standard port?
-	if (!empty($db_port))
+	if (!empty($_port))
 		$incontext['db']['server'] .= ':' . $db_port;
 
 	// Are we submitting?
@@ -932,6 +932,9 @@ function ForumSettings()
 			'cachedir' => addslashes(dirname(__FILE__)) . '/cache',
 			'mbname' => strtr($_POST['mbname'], array('\"' => '"')),
 			'language' => substr($_SESSION['installer_temp_lang'], 8, -4),
+			'image_proxy_secret' => substr(sha1(mt_rand()), 0, 20),
+			'image_proxy_maxsize' => 5190,
+			'image_proxy_enabled' => 0,
 		);
 
 		// Must save!
@@ -977,7 +980,7 @@ function DatabasePopulation()
 	if (isset($_POST['pop_done']))
 		return true;
 
-	// Force opcache invalidate for Settings.php file.
+    // Force opcache invalidate for Settings.php file.
     if (function_exists('opcache_invalidate')) {
         opcache_invalidate(dirname(__FILE__) . '/Settings.php', true);
     }
@@ -1077,7 +1080,7 @@ function DatabasePopulation()
 		{
 			// Error 1050: Table already exists!
 			//!!! Needs to be made better!
-			if (($db_type != 'mysql' || mysql_errno($db_connection) === 1050) && preg_match('~^\s*CREATE TABLE ([^\s\n\r]+?)~', $current_statement, $match) == 1)
+			if (($db_type != 'mysql' || mysqli_errno($db_connection) === 1050) && preg_match('~^\s*CREATE TABLE ([^\s\n\r]+?)~', $current_statement, $match) == 1)
 			{
 				$exists[] = $match[1];
 				$incontext['sql_results']['table_dups']++;

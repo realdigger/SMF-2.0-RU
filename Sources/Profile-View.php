@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.12
+ * @version 2.0.14
  */
 
 if (!defined('SMF'))
@@ -981,7 +981,7 @@ function trackActivity($memID)
 	createList($listOptions);
 
 	// If this is a big forum, or a large posting user, let's limit the search.
-	if ($modSettings['totalMessages'] > 50000 && $user_profile[$memID]['posts'] > 500)
+	if ($modSettings['totalMessages'] > 50000 || $user_profile[$memID]['posts'] > 500)
 	{
 		$request = $smcFunc['db_query']('', '
 			SELECT MAX(id_msg)
@@ -995,7 +995,7 @@ function trackActivity($memID)
 		$smcFunc['db_free_result']($request);
 
 		// There's no point worrying ourselves with messages made yonks ago, just get recent ones!
-		$min_msg_member = max(0, $max_msg_member - $user_profile[$memID]['posts'] * 3);
+		$min_msg_member = max(0, $max_msg_member - 50000);
 	}
 
 	// Default to at least the ones we know about.
@@ -1011,8 +1011,10 @@ function trackActivity($memID)
 		WHERE id_member = {int:current_member}
 		' . (isset($min_msg_member) ? '
 			AND id_msg >= {int:min_msg_member} AND id_msg <= {int:max_msg_member}' : '') . '
-		GROUP BY poster_ip',
+		GROUP BY poster_ip
+		LIMIT {int:limit}',
 		array(
+			'limit' => min($user_profile[$memID]['posts'], 500),
 			'current_member' => $memID,
 			'min_msg_member' => !empty($min_msg_member) ? $min_msg_member : 0,
 			'max_msg_member' => !empty($max_msg_member) ? $max_msg_member : 0,

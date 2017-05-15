@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.10
+ * @version 2.0.14
  */
 
 if (!defined('SMF'))
@@ -526,7 +526,7 @@ function SendMailing($clean_only = false)
 		foreach ($addressed as $curmem)
 		{
 			$curmem = trim($curmem);
-			if ($curmem != '' && preg_match('~^[0-9A-Za-z=_\'+\-/\.]*@[\w\-]+(\.[\w\-]+)*(\.[\w]{2,6})$~', $curmem) !== 0)
+			if ($curmem != '' && filter_var($curmem, FILTER_VALIDATE_EMAIL) !== false)
 				$context['recipients']['emails'][$curmem] = $curmem;
 		}
 	}
