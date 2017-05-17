@@ -980,10 +980,10 @@ function DatabasePopulation()
 	if (isset($_POST['pop_done']))
 		return true;
 
-    // Force opcache invalidate for Settings.php file.
-    if (function_exists('opcache_invalidate')) {
-        opcache_invalidate(dirname(__FILE__) . '/Settings.php', true);
-    }
+	// Force opcache invalidate for Settings.php file.
+	if (function_exists('opcache_invalidate')) {
+		opcache_invalidate(dirname(__FILE__) . '/Settings.php', true);
+	}
 
 	// Reload settings.
 	require(dirname(__FILE__) . '/Settings.php');

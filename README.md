@@ -7,7 +7,7 @@
 
 ### Отличия от оригинальной версии
 * Интегрирована локализация Russian-utf8
-* В установщике по умолчанию выбрано использование кодировки utf-8
+* В установщике по умолчанию выбрано использование кодировки utf-8 (SMF не работает корректно с кириллицей без utf-8 на PHP старше версии 5.3)
 * Исправлена ошибка в установщике из-за которой на некоторых серверах неверно прописывались пути к теме оформления, смайлам и аватарам (http://127.0.0.1/smf/...)
 * Для личных сообщений по умолчанию задан режим диалога
 * Для настройки "Уведомлять по e-mail о появлении новых сообщений" по умолчанию выбрано значение "Всегда"
@@ -40,7 +40,7 @@ SMF 2.0 distributive with Russian-utf8 localization integrated.
 
 ### Features
 * Russian-utf8 localization integrated.
-* Set utf-8 as default for install script
+* Set utf-8 as default for install script (SMF does not work correctly with Cyrillic languages on PHP above 5.3)
 * Add force opcache invalidate for Settings.php file to fix issue with http://127.0.0.1/smf/... url for themes, smiles and avatars
 * Set default PM mode as a conversation
 * Set "Notify by email every time you receive a personal message" option to "Always" by default
