@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0
+ * @version 2.0.15
  */
 
 if (!defined('SMF'))
@@ -415,7 +415,7 @@ function MarkRead()
 			);
 			if ($smcFunc['db_num_rows']($result) > 0)
 			{
-				$logBoardInserts = '';
+				$logBoardInserts = array();
 				while ($row = $smcFunc['db_fetch_assoc']($result))
 					$logBoardInserts[] = array($modSettings['maxMsgID'], $user_info['id'], $row['id_board']);
 

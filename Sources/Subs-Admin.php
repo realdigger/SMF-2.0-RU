@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0
+ * @version 2.0.15
  */
 
 if (!defined('SMF'))
@@ -76,6 +76,9 @@ function getServerVersions($checkFor)
 			trigger_error('getServerVersions(): you need to be connected to the database in order to get its server version', E_USER_NOTICE);
 		else
 		{
+			$versions['db_engine'] = array('title' => sprintf($txt['database_server'], $smcFunc['db_title']), 'version' => '');
+			$versions['db_engine']['version'] = $smcFunc['db_get_engine']();
+
 			$versions['db_server'] = array('title' => sprintf($txt['support_versions_db'], $smcFunc['db_title']), 'version' => '');
 			$versions['db_server']['version'] = $smcFunc['db_get_version']();
 		}

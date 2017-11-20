@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0
+ * @version 2.0.15
  */
 
 if (!defined('SMF'))
@@ -670,12 +670,20 @@ function SMStats()
 {
 	global $modSettings, $user_info, $forum_version, $sourcedir;
 
+	// Is this the old settings (upgrade failure)?
+	if (!empty($modSettings['allow_sm_stats']))
+	{
+		$modSettings['enable_sm_stats'] = 1;
+		$modSettings['sm_stats_key'] = $modSettings['allow_sm_stats'];
+		unset($modSettings['allow_sm_stats']);
+	}
+
 	// First, is it disabled?
-	if (empty($modSettings['allow_sm_stats']))
+	if (empty($modSettings['enable_sm_stats']) || empty($modSettings['sm_stats_key']))
 		die();
 
 	// Are we saying who we are, and are we right? (OR an admin)
-	if (!$user_info['is_admin'] && (!isset($_GET['sid']) || $_GET['sid'] != $modSettings['allow_sm_stats']))
+	if (!$user_info['is_admin'] && (!isset($_GET['sid']) || $_GET['sid'] != $modSettings['sm_stats_key']))
 		die();
 
 	// Verify the referer...
@@ -692,14 +700,14 @@ function SMStats()
 
 	// Get the actual stats.
 	$stats_to_send = array(
-		'UID' => $modSettings['allow_sm_stats'],
+		'UID' => $modSettings['sm_stats_key'],
 		'time_added' => time(),
 		'members' => $modSettings['totalMembers'],
 		'messages' => $modSettings['totalMessages'],
 		'topics' => $modSettings['totalTopics'],
 		'boards' => 0,
 		'php_version' => $serverVersions['php']['version'],
-		'database_type' => strtolower($serverVersions['db_server']['title']),
+		'database_type' => strtolower($serverVersions['db_engine']['version']),
 		'database_version' => $serverVersions['db_server']['version'],
 		'smf_version' => $forum_version,
 		'smfd_version' => $modSettings['smfVersion'],
@@ -726,9 +734,9 @@ function SMStats()
 			$out = 'POST /smf/stats/collect_stats.php HTTP/1.1' . "\r\n";
 			$out .= 'Host: www.simplemachines.org' . "\r\n";
 			$out .= 'Content-Type: application/x-www-form-urlencoded' . "\r\n";
+			$out .= 'Connection: Close' . "\r\n";
 			$out .= 'Content-Length: ' . $length . "\r\n\r\n";
 			$out .= $stats_to_send . "\r\n";
-			$out .= 'Connection: Close' . "\r\n\r\n";
 			fwrite($fp, $out);
 			fclose($fp);
 		}

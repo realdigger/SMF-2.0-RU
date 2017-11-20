@@ -7,7 +7,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0
+ * @version 2.0.15
  */
 
 // This is the administration center home.
@@ -886,8 +886,14 @@ function template_show_settings()
 
 				// Show a check box.
 				if ($config_var['type'] == 'check')
+				{
+					if (!empty($config_var['needs_default']))
+						echo '
+							<input type="hidden" name="', $config_var['name'], '" value="0" />';
+
 					echo '
 							<input type="checkbox"', $javascript, $disabled, ' name="', $config_var['name'], '" id="', $config_var['name'], '"', ($config_var['value'] ? ' checked="checked"' : ''), ' value="1" class="input_check" />';
+				}
 				// Escape (via htmlspecialchars.) the text box.
 				elseif ($config_var['type'] == 'password')
 					echo '

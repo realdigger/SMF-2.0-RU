@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.12
+ * @version 2.0.15
  */
 
 if (!defined('SMF'))
@@ -132,7 +132,7 @@ function smf_db_create_table($table_name, $columns, $indexes = array(), $paramet
 		list ($type, $size) = $smcFunc['db_calculate_type']($column['type'], $column['size']);
 
 		// Allow unsigned integers (mysql only)
-		$unsigned = in_array($type, array('int', 'tinyint', 'smallint', 'mediumint', 'bigint', 'float')) && !empty($column_info['unsigned']) ? 'unsigned ' : '';
+		$unsigned = in_array($type, array('int', 'tinyint', 'smallint', 'mediumint', 'bigint', 'float')) && !empty($column['unsigned']) ? 'unsigned ' : '';
 
 		if ($size !== null)
 			$type = $type . '(' . $size . ')';

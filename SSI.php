@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.10
+ * @version 2.0.15
  */
 
 // Don't do anything if SMF is already loaded.
@@ -1029,7 +1029,7 @@ function ssi_login($redirect_to = '', $output_method = 'echo')
 
 	echo '<tr>
 					<td><input type="hidden" name="cookielength" value="-1" /></td>
-					<td><input type="submit" value="', $txt['login'], '" class="button_submit" /></td>
+					<td><input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '" /><input type="submit" value="', $txt['login'], '" class="button_submit" /></td>
 				</tr>
 			</table>
 		</form>';

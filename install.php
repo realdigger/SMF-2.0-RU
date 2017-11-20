@@ -8,13 +8,13 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.14
+ * @version 2.0.15
  */
 
-$GLOBALS['current_smf_version'] = '2.0.14';
+$GLOBALS['current_smf_version'] = '2.0.15';
 $GLOBALS['db_script_version'] = '2-0';
 
-$GLOBALS['required_php_version'] = '5.3.0';
+$GLOBALS['required_php_version'] = '5.4.0';
 
 // Don't have PHP support, do you?
 // ><html dir="ltr"><head><title>Error!</title></head><body>Sorry, this installer requires PHP!<div style="display: none;">
@@ -1163,15 +1163,17 @@ function DatabasePopulation()
 	}
 
 	// Are we allowing stat collection?
-	if (isset($_POST['stats']) && substr($_POST['boardurl'], 0, 16) != 'http://localhost')
+	if (!empty($_POST['stats']) && substr($boardurl, 0, 16) != 'http://localhost')
 	{
+		$upcontext['allow_sm_stats'] = true;
+
 		// Attempt to register the site etc.
-		$fp = @fsockopen("www.simplemachines.org", 80, $errno, $errstr);
+		$fp = @fsockopen('www.simplemachines.org', 80, $errno, $errstr);
 		if ($fp)
 		{
-			$out = "GET /smf/stats/register_stats.php?site=" . base64_encode($_POST['boardurl']) . " HTTP/1.1\r\n";
-			$out .= "Host: www.simplemachines.org\r\n";
-			$out .= "Connection: Close\r\n\r\n";
+			$out = 'GET /smf/stats/register_stats.php?site=' . base64_encode($boardurl) . ' HTTP/1.1' . "\r\n";
+			$out .= 'Host: www.simplemachines.org' . "\r\n";
+			$out .= 'Connection: Close' . "\r\n\r\n";
 			fwrite($fp, $out);
 
 			$return_data = '';
@@ -1184,18 +1186,27 @@ function DatabasePopulation()
 			preg_match('~SITE-ID:\s(\w{10})~', $return_data, $ID);
 
 			if (!empty($ID[1]))
-				$smcFunc['db_insert']('',
+				$smcFunc['db_insert']('replace',
 					$db_prefix . 'settings',
+					array('variable' => 'string', 'value' => 'string'),
 					array(
-						'variable' => 'string-255', 'value' => 'string-65534',
-					),
-					array(
-						'allow_sm_stats', $ID[1],
+						array('sm_stats_key', $ID[1]),
+						array('enable_sm_stats', 1),
 					),
 					array('variable')
 				);
 		}
 	}
+	// Don't remove stat collection unless we unchecked the box for real, not from the loop.
+	elseif (empty($_POST['stats']) && empty($upcontext['allow_sm_stats']))
+		$smcFunc['db_query']('', '
+			DELETE FROM {db_prefix}settings
+			WHERE variable = {string:enable_sm_stats}',
+			array(
+				'enable_sm_stats' => 'enable_sm_stats',
+				'db_error_skip' => true,
+			)
+		);
 
 	// As of PHP 5.1, setting a timezone is required.
 	if (!isset($modSettings['default_timezone']) && function_exists('date_default_timezone_set'))
@@ -1567,7 +1578,7 @@ class ftp_connection
 	var $connection = 'no_connection', $error = false, $last_message, $pasv = array();
 
 	// Create a new FTP connection...
-	function ftp_connection($ftp_server, $ftp_port = 21, $ftp_user = 'anonymous', $ftp_pass = 'ftpclient@simplemachines.org')
+	function __construct($ftp_server, $ftp_port = 21, $ftp_user = 'anonymous', $ftp_pass = 'ftpclient@simplemachines.org')
 	{
 		if ($ftp_server !== null)
 			$this->connect($ftp_server, $ftp_port, $ftp_user, $ftp_pass);
@@ -2452,7 +2463,7 @@ function template_forum_settings()
 			<tr>
 				<td valign="top" class="textbox">', $txt['install_settings_stats'], ':</td>
 				<td>
-					<input type="checkbox" name="stats" id="stats_check" class="input_check" /> <label for="stats_check">', $txt['install_settings_stats_title'], '</label><br />
+					<input type="checkbox" name="stats" id="stats_check" class="input_check" checked="checked" /> <label for="stats_check">', $txt['install_settings_stats_title'], '</label><br />
 					<div style="font-size: smaller; margin-bottom: 2ex;">', $txt['install_settings_stats_info'], '</div>
 				</td>
 			</tr>

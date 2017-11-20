@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0
+ * @version 2.0.15
  */
 
 if (!defined('SMF'))
@@ -61,6 +61,7 @@ function db_extra_init()
 			'db_table_sql' => 'smf_db_table_sql',
 			'db_list_tables' => 'smf_db_list_tables',
 			'db_get_version' => 'smf_db_get_version',
+			'db_get_engine' => 'smf_db_get_engine',
 		);
 }
 
@@ -449,6 +450,37 @@ function smf_db_get_version()
 	$smcFunc['db_free_result']($request);
 
 	return $ver;
+}
+
+/**
+ * Figures out if we are using MySQL, Percona or MariaDB
+ *
+ * @return string The database engine we are using
+*/
+function smf_db_get_engine()
+{
+	global $smcFunc;
+	static $db_type;
+
+	if (!empty($db_type))
+		return $db_type;
+
+	$request = $smcFunc['db_query']('', 'SELECT @@version_comment');
+	list ($comment) = $smcFunc['db_fetch_row']($request);
+	$smcFunc['db_free_result']($request);
+
+	// Skip these if we don't have a comment.
+	if (!empty($comment))
+	{
+		if (stripos($comment, 'percona') !== false)
+			return 'Percona';
+		if (stripos($comment, 'mariadb') !== false)
+			return 'MariaDB';
+	}
+	else
+		return 'fail';
+
+	return 'MySQL';
 }
 
 ?>

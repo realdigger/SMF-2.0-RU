@@ -8,7 +8,7 @@
  * @copyright 2011 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.12
+ * @version 2.0.15
  */
 
 if (!defined('SMF'))
@@ -109,7 +109,7 @@ class custom_search
 
 		// Excluded phrases don't benefit from being split into subwords.
 		if (count($subwords) > 1 && $isExcluded)
-			continue;
+			return;
 		else
 		{
 			foreach ($subwords as $subword)

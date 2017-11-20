@@ -7,7 +7,7 @@
  * @copyright 2017 Simple Machines and individual contributors
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 2.0.14
+ * @version 2.0.15
  */
 
 if (!defined('SMF'))
@@ -303,7 +303,7 @@ class curl_fetch_web_data
 
 		// set proper headers only
 		if (isset($temp[0]) && isset($temp[1]))
-			$this->headers[strtolower($temp[0])] = strtolower(trim($temp[1]));
+			$this->headers[strtolower($temp[0])] = trim($temp[1]);
 
 		// return the length of what was passed unless you want a Failed writing header error ;)
 		return strlen($header);
